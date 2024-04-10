@@ -1,29 +1,34 @@
-package com.example.elasticsearch.product;
+package com.example.elasticsearch.employee;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 @Data
-@Document(indexName = "products")
+@Document(indexName = "employees", createIndex = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class Product {
+public class Employee {
 
-    private int id;
+    @Id
+    private String id;
+
+    @Field(type = FieldType.Text, name = "name")
     private String name;
-    private String desription;
-    private int quantity;
-    private double price;
+
+    @Field(type = FieldType.Long, name = "salary")
+    private Long salary;
 
 
-    public void update(Product product)
+    public void update(Employee newEmployee)
     {
-        this.name = product.getName();
-        this.desription = product.getDesription();
-        this.quantity = product.getQuantity();
-        this.price = product.getPrice();
+        if(null != newEmployee.getId())     this.id = newEmployee.getId();
+        if(null != newEmployee.getName())   this.name = newEmployee.getName();
+        if(null != newEmployee.getSalary()) this.salary = newEmployee.getSalary();
     }
 
 }

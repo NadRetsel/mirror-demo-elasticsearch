@@ -1,10 +1,18 @@
-package com.example.elasticsearch.product;
+package com.example.elasticsearch.employee;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.elasticsearch.annotations.Query;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
+import org.springframework.stereotype.Repository;
 
-public interface ProductRepository extends ElasticsearchRepository<Product, Integer> {
+import java.util.List;
 
-    Page<Product> findByName(String name, Pageable pageable);
+@Repository
+public interface EmployeeRepository extends ElasticsearchRepository<Employee, String> {
+
+    List<Employee> findBySalaryBetween(Long startingSalary, Long endingSalary);
+
+    @Query("{\"match\": {\"salary\": {\"query\": \"?0\"}}}")
+    Page<Employee> findBySalary(Long salary);
+
 }

@@ -1,29 +1,7 @@
 package com.example.elasticsearch;
 
-import lombok.RequiredArgsConstructor;
-import org.elasticsearch.client.RestHighLevelClient;
-import org.springframework.boot.autoconfigure.elasticsearch.ElasticsearchProperties;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.data.elasticsearch.client.ClientConfiguration;
-import org.springframework.data.elasticsearch.client.RestClients;
-import org.springframework.data.elasticsearch.config.AbstractElasticsearchConfiguration;
 
-@Configuration
-@RequiredArgsConstructor
-public class ElasticsearchConfiguration extends AbstractElasticsearchConfiguration {
 
-    private final ElasticsearchProperties elasticsearchProperties;
-
-    @Bean
-    @Override
-    public RestHighLevelClient elasticsearchClient() {
-        ClientConfiguration clientConfiguration = ClientConfiguration.builder()
-                .connectedTo("localhost:9200")
-                .build();
-
-        return RestClients.create(clientConfiguration)
-                .rest();
-    }
+public class Config {
 
 }

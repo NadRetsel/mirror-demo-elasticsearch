@@ -1,31 +1,40 @@
-package com.example.elasticsearch.product;
+package com.example.elasticsearch.employee;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-public class ProductController {
+public class EmployeeController {
 
-    private final ProductService productService;
+    private final EmployeeService employeeService;
 
 
-    @GetMapping("/products")
-    public Iterable<Product> getALl()
+    @PostMapping("/employee")
+    public Employee createEmployee(@RequestBody Employee employee)
     {
-        return this.productService.getAll();
+        return this.employeeService.createEmployee(employee);
     }
 
-    @PostMapping("/product")
-    public Product insertProduct(@RequestBody Product product)
+
+    @GetMapping("/employees/{id}")
+    public Employee readEmployeesById(@PathVariable("id") String id)
     {
-        return this.productService.insertProduct(product);
+        return this.employeeService.readEmployeeById(id);
     }
+
 
     @PutMapping("/update/{id}")
-    public Product updateProduct(@PathVariable("id") int id, @RequestBody Product product)
+    public Employee updateEmployee(@PathVariable("id") String id,
+                                   @RequestBody Employee employee)
     {
-        return this.productService.updateProduct(id, product);
+        return this.employeeService.updateEmployee(id, employee);
+    }
+
+
+    @DeleteMapping("/delete/{id}")
+    public void deleteEmployee(@PathVariable("id") String id)
+    {
+        this.employeeService.deleteEmployee(id);
     }
 }
